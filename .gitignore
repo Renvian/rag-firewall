@@ -1,0 +1,16 @@
+# Security
+.env
+
+# Local Database Folders
+my_local_brain/
+my_local_brain_v2/
+my_local_brain_v3/
+
+# Python Junk
+__pycache__/
+venv/
+*.pyc
+
+# Test versions
+live_rag_system.py
+rag_system.py
