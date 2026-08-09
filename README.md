@@ -47,48 +47,49 @@ Create a virtual environment and install the required dependencies:
 venv\Scripts\activate
 ```
 
-# On Mac/Linux use:
+#### On Mac/Linux use:
 source venv/bin/activate
 
 ```bash pip install -r requirements.txt
 ```
 
-### 4. API Key Configuration
+#### 4. API Key Configuration
 Create a .env file in the root directory and add your Groq API key:
 ```bash GROQ_API_KEY=gsk_your_actual_key_here
 ```
 
 ### 5. Execution
 The system requires two parallel processes. Open two terminal windows.
-# Terminal 1 (Start the VectorNotch Middleware):
+#### Terminal 1 (Start the VectorNotch Middleware):
 ```bash uvicorn main:app --reload --port 8000
 ```
 
-# Terminal 2 (Start the Client Application):
+#### Terminal 2 (Start the Client Application):
 python vector_notch_gui.py
 
 ---
 
 ### System Constraints & Limitations
-# Middleware Latency: 
+#### Middleware Latency: 
 Routing every response through a secondary machine learning model (DeBERTa) introduces a latency overhead compared to standard direct-to-user LLM streams.
 
-# String-Match Fragility: 
+#### String-Match Fragility: 
 The compute bypass relies on exact string matching for the [MISSING_CONTEXT] tag. If the LLM disobeys the formatting instruction, the fallback hits the verification layer, which may incorrectly flag the response.
 
-# Context Window Dependency: The NLI model's accuracy is strictly bound by the quality and chunk size of the ingested vector data.
+#### Context Window Dependency: 
+The NLI model's accuracy is strictly bound by the quality and chunk size of the ingested vector data.
 
 
 ### Future Development Scope
-# Model Agnosticism & Upgrades:
+#### Model Agnosticism & Upgrades:
 Abstracting the generation layer to easily swap in reasoning-heavy models (e.g., OpenAI o1, Claude 3.5 Sonnet) as API costs decrease.
 
-# Full Local Deployment: 
+#### Full Local Deployment: 
 Transitioning the generation layer to run entirely on-premise using Ollama or vLLM.
 
-# Dynamic Thresholding: 
+#### Dynamic Thresholding: 
 Implementing a dynamic confidence threshold for the DeBERTa model based on query complexity.
 
-# Containerization: 
+#### Containerization: 
 Migrating the FastAPI server and ChromaDB instances into isolated Docker containers via docker-compose.
 
