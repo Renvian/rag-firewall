@@ -25,7 +25,26 @@ To prevent the NLI model from failing on legitimate "I do not know" responses, t
 ### Anti-Speculation Prompting
 The system prompt strictly prohibits speculative vocabulary (e.g., "likely", "assume", "probably"). This forces the LLM to trigger the Stealth Tag bypass rather than attempting to logically guess why an event occurred based on partial context.
 
----
+## Project structure 
+```bash
+vector-notch/
+│
+├── backend/
+│   ├── main.py                   # The FastAPI middleware (DeBERTa logic)
+│   └── requirements.txt          # Backend dependencies (fastapi, uvicorn, sentence-transformers, numpy)
+│
+├── frontend/
+│   ├── vector_notch_gui.py       # The Tkinter frontend (Groq, ChromaDB, GUI logic)
+│   ├── .env                      # Your API keys (GROQ_API_KEY)
+│   ├── requirements.txt          # Frontend dependencies (chromadb, groq, python-dotenv, requests)
+│   │
+│   └── my_local_brain_v3/        # (Auto-generated) ChromaDB persistent storage will appear here
+│       ├── chroma.sqlite3        
+│       └── [uuid-folders] 
+│
+├── .gitignore                    # Prevents pushing .env, cache, and the database
+└── README.md                     # Project documentation
+```
 
 ## Steps for Implementation
 
