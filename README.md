@@ -70,7 +70,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### 4. API Key Configuration
+### 4. API Key Configuration
 Create a .env file in the root directory and add your Groq API key:
 ```bash
 GROQ_API_KEY=gsk_your_actual_key_here
@@ -90,27 +90,27 @@ python vector_notch_gui.py
 
 ---
 
-### System Constraints & Limitations
-#### Middleware Latency: 
+## System Constraints & Limitations
+### Middleware Latency: 
 Routing every response through a secondary machine learning model (DeBERTa) introduces a latency overhead compared to standard direct-to-user LLM streams.
 
-#### String-Match Fragility: 
+### String-Match Fragility: 
 The compute bypass relies on exact string matching for the [MISSING_CONTEXT] tag. If the LLM disobeys the formatting instruction, the fallback hits the verification layer, which may incorrectly flag the response.
 
-#### Context Window Dependency: 
+### Context Window Dependency: 
 The NLI model's accuracy is strictly bound by the quality and chunk size of the ingested vector data.
 
 
-### Future Development Scope
-#### Model Agnosticism & Upgrades:
+## Future Development Scope
+### Model Agnosticism & Upgrades:
 Abstracting the generation layer to easily swap in reasoning-heavy models (e.g., OpenAI o1, Claude 3.5 Sonnet) as API costs decrease.
 
-#### Full Local Deployment: 
+### Full Local Deployment: 
 Transitioning the generation layer to run entirely on-premise using Ollama or vLLM.
 
-#### Dynamic Thresholding: 
+### Dynamic Thresholding: 
 Implementing a dynamic confidence threshold for the DeBERTa model based on query complexity.
 
-#### Containerization: 
+### Containerization: 
 Migrating the FastAPI server and ChromaDB instances into isolated Docker containers via docker-compose.
 
