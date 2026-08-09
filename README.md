@@ -36,7 +36,8 @@ Ensure you have Python 3.9+ and Git installed on your system.
 Clone the repository and navigate to the project directory:
 ```bash
 git clone [https://github.com/Renvian/rag-firewall.git](https://github.com/Renvian/rag-firewall.git)
-cd rag-firewall```
+cd rag-firewall
+```
 
 ### 3. Environment Configuration
 Create a virtual environment and install the required dependencies:
