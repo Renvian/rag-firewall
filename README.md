@@ -42,30 +42,38 @@ cd rag-firewall
 ### 3. Environment Configuration
 Create a virtual environment and install the required dependencies:
 
-```bash python -m venv venv
+```bash
+python -m venv venv
 # On Windows use:
 venv\Scripts\activate
 ```
 
 #### On Mac/Linux use:
+```bash
 source venv/bin/activate
+```
 
-```bash pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
 ```
 
 #### 4. API Key Configuration
 Create a .env file in the root directory and add your Groq API key:
-```bash GROQ_API_KEY=gsk_your_actual_key_here
+```bash
+GROQ_API_KEY=gsk_your_actual_key_here
 ```
 
 ### 5. Execution
 The system requires two parallel processes. Open two terminal windows.
 #### Terminal 1 (Start the VectorNotch Middleware):
-```bash uvicorn main:app --reload --port 8000
+```bash
+uvicorn main:app --reload --port 8000
 ```
 
 #### Terminal 2 (Start the Client Application):
+```bash
 python vector_notch_gui.py
+```
 
 ---
 
