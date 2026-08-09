@@ -3,19 +3,21 @@ from pydantic import BaseModel
 from sentence_transformers import CrossEncoder
 import numpy as np
 
-# Initialize the FastAPI server instance
-app = FastAPI(title="VectorNotch NLI Middleware")
+# 1. Initialize the FastAPI server instance
+app = FastAPI(title="VectorNotch NLI Gateway")
 
-# Load your local model
+# 2. Load your local model (It will load once when the server starts)
 print("Loading VectorNotch model...")
 notch_model = CrossEncoder('cross-encoder/nli-deberta-base')
-print("Model loaded and VectorNotch is active!")
+print("Model loaded and VectorNotch server ready!")
 
+# 1. Schema requiring the User's Question
 class ValidationRequest(BaseModel):
     question: str
     premise: str
     hypothesis: str
 
+# 2. Endpoint Logic
 @app.post("/verify")
 async def verify_hallucination(request: ValidationRequest):
     # Enrichen the context
@@ -26,14 +28,26 @@ async def verify_hallucination(request: ValidationRequest):
     logits = scores[0]
     probs = np.exp(logits) / np.sum(np.exp(logits))
 
-    # Dynamic label mapping
+    # --- THE DYNAMIC LOGIC DESIGN ---
+    # 1. Ask the model for its exact logit mapping (e.g., {0: 'entailment', 1: 'neutral', 2: 'contradiction'})
     id2label = notch_model.config.id2label
-    results = {id2label[idx].lower(): prob for idx, prob in enumerate(probs)}
 
-    contradiction_score = next((prob for label, prob in results.items() if "contradict" in label), 0.0)
+    # 2. Match the probabilities to the actual label names
+    results = {}
+    for idx, prob in enumerate(probs):
+        label_name = id2label[idx].lower() # Convert to lowercase for easy searching
+        results[label_name] = prob
+
+    # 3. Find the contradiction score, no matter what position it is in
+    contradiction_score = 0.0
+    for label, prob in results.items():
+        if "contradict" in label: # Matches 'contradiction', 'contradict', etc.
+            contradiction_score = prob
+
+    # 4. Apply the sane threshold
     is_safe = bool(contradiction_score < 0.75)
 
-    # Terminal diagnostics
+    # Terminal debug print
     print(f"\n--- VECTORNOTCH DIAGNOSTICS ---")
     print(f"Model ID Mapping: {id2label}")
     print(f"Probabilities: {results}")
