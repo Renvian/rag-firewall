@@ -13,7 +13,7 @@
 
 ## Introduction
 
-VectorNotch addresses the challenge of LLM hallucinationsâ€”where models invent facts or make probabilistic assumptionsâ€”by enforcing deterministic output verification. The system intercepts LLM outputs, checks them for semantic consistency against the source context, and only allows verified answers through. This is achieved using a combination of vector storage, high-speed text generation, and an NLI classification model.
+VectorNotch addresses the challenge of LLM hallucinationswhere models invent facts or make probabilistic assumptions by enforcing deterministic output verification. The system intercepts LLM outputs, checks them for semantic consistency against the source context, and only allows verified answers through. This is achieved using a combination of vector storage, high-speed text generation, and an NLI classification model.
 
 The project is organized into two main Python-based components:
 - **Backend:** Provides a FastAPI service for NLI-based output verification.
