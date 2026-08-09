@@ -46,14 +46,8 @@ Create a virtual environment and install the required dependencies:
 python -m venv venv
 # On Windows use:
 venv\Scripts\activate
-```
-
-#### On Mac/Linux use:
-```bash
+#On Mac/Linux use:
 source venv/bin/activate
-```
-
-```bash
 pip install -r requirements.txt
 ```
 
