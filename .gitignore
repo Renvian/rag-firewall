@@ -11,6 +11,6 @@ __pycache__/
 venv/
 *.pyc
 
-# Test versions
-live_rag_system.py
-rag_system.py
+# model
+model/
+

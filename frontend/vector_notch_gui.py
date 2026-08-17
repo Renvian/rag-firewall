@@ -144,7 +144,7 @@ class VectorNotchApp:
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": query}
                 ],
-                model="llama-3.1-8b-instant",
+                model="openai/gpt-oss-20b",
                 temperature=0.2 
             )
 
